@@ -5,22 +5,22 @@ import matplotlib.pyplot as plt
 
 def getSlodNum_Last():
     tmp = np.loadtxt("numberSold_test.csv", dtype=np.str, delimiter=",")
-    soldNum_last = tmp[1:-1, 2].astype(np.float)
+    soldNum_last = tmp[1:-3, 2].astype(np.float)
     return soldNum_last
 
 def getSoldNum_Now():
     tmp = np.loadtxt("numberSold_test.csv", dtype=np.str, delimiter=",")
-    soldNum_now = tmp[2:, 2].astype(np.float)
+    soldNum_now = tmp[4:, 2].astype(np.float)
     return soldNum_now
 
 def getRentals_Now():
     tmp = np.loadtxt("numberSold_test.csv", dtype=np.str, delimiter=",")
-    rentals_now = tmp[2:, 3].astype(np.float)
+    rentals_now = tmp[4:, 3].astype(np.float)
     return rentals_now
 
 def getAgency_Now():
     tmp = np.loadtxt("numberSold_test.csv", dtype=np.str, delimiter=",")
-    agency_now = tmp[2:, 4].astype(np.float)
+    agency_now = tmp[4:, 4].astype(np.float)
     return agency_now
 
 
@@ -31,7 +31,9 @@ def predict():
     rentals_now = getRentals_Now()
     agency_now = getAgency_Now()
     for i in range(len(soldNum_last)):
-        tmp = math.log(soldNum_last[i]) * 1.02678202e+00 - 4.16507922e-04 * rentals_now[i] + 4.36685689e-04 * agency_now[i] - 0.195598719278
+        # tmp = math.log(soldNum_last[i]) * 1.02678202e+00 - 4.16507922e-04 * rentals_now[i] + 4.36685689e-04 * agency_now[i] - 0.195598719278
+        # step three
+        tmp = math.log(soldNum_last[i]) * 1.11925751 - 0.00237715 * rentals_now[i] + 0.00204901 * agency_now[i] - 0.81473550336
         predict_result.append(math.exp(tmp))
     return predict_result, soldNum_now
 
@@ -41,6 +43,8 @@ def getAAPE():
     for i in range(len(predict_result)):
         tmp = tmp + abs((predict_result[i]-soldNum_real[i])/soldNum_real[i])
     # 7.16258275472
+    # Step three
+    # 15.8459857534
     return tmp/len(predict_result) * 100
 
 def draw():
@@ -82,4 +86,5 @@ def draw():
     plt.show()
 
 if __name__ == '__main__':
-    draw()
+    print getAAPE()
+    # draw()

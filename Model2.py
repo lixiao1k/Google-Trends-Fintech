@@ -24,22 +24,22 @@ def getAdjusted_lastNum():
     adjusted_num = []
     for i in a:
         adjusted_num.append(math.log(i))
-    return adjusted_num[:-1]
+    return adjusted_num[:-3]
 
 def getAdjusted_nowNum():
     a, b, c = getOtherData()
     adjusted_num = []
     for i in a:
         adjusted_num.append(math.log(i))
-    return adjusted_num[1:]
+    return adjusted_num[3:]
 
 def getRentals_now():
     a, rentals, c = getOtherData()
-    return rentals[1:]
+    return rentals[3:]
 
 def getAgency_now():
     a, b, agencies = getOtherData()
-    return agencies[1:]
+    return agencies[3:]
 
 def getXdata():
     data = []
@@ -76,7 +76,9 @@ def model2():
     # [1.03199334e+00  -1.18092902e-04  -1.53651831e-05  -5.19698019e-07] -0.0749491132377
     # if drop average price
     # [  1.02678202e+00  -4.16507922e-04   4.36685689e-04] -0.195598719278
-    x = np.arange(0, 59, 1)
+    # step three
+    # [ 1.11925751 -0.00237715  0.00204901] -0.81473550336
+    x = np.arange(0, 57, 1)
     fig = plt.figure()
     ax = fig.add_subplot(111)
     plt.plot(x, returnToOrignal(getAdjusted_nowNum()), linewidth=2)
