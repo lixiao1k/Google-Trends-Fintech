@@ -14,9 +14,9 @@ def getAveragePrice():
 
 def getOtherData():
     tmp = np.loadtxt("numberSold.csv", dtype=np.str, delimiter=",")
-    adjusted_num = tmp[13:, 2].astype(np.float)
-    rentals = tmp[13:, 3].astype(np.float)
-    agencies = tmp[13:, 4].astype(np.float)
+    adjusted_num = tmp[13:73, 2].astype(np.float)
+    rentals = tmp[13:73, 3].astype(np.float)
+    agencies = tmp[13:73, 4].astype(np.float)
     return adjusted_num, rentals, agencies
 
 def getAdjusted_lastNum():
@@ -84,6 +84,7 @@ def model2():
     plt.plot(x, returnToOrignal(getAdjusted_nowNum()), linewidth=2)
     plt.plot(x, returnToOrignal(regr.predict(getXdata())), 'r-o', linewidth=2)
     print regr.predict(getXdata())
+    print getAdjusted_nowNum()
     ax.set_xticks([0, 11, 23, 35, 47])
     ax.set_xticklabels(['2004', '2005', '2006', '2007', '2008'])
     ax.set_xlim([-2, 59])
